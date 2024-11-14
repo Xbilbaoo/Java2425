@@ -155,12 +155,40 @@ public class Nutriscore {
 	
 	private static void motaBerberekoakBistaratu (String[] elikagaiak, String[] motak, String elikagaia) {
 		
+		String[] motaBerberekoElikagaiak;
 		String elikagaiMota = null;
-		int i = 0;
 		
+		int i = 0;
+		int j = 0;
+		int kopurua = 1;
 		
 		// Hautatutako elikagaiaren mota topatu
 		
-		for (i = 0; )
+		for (i = 0; i < elikagaiak.length; i ++) {
+			
+			if (elikagaia.equalsIgnoreCase(elikagaiak[i])) {
+				
+				elikagaiMota = motak[i];
+				
+			}
+		}
+		
+		for (i = 0; i < elikagaiak.length; i ++) {
+			
+			if (elikagaiMota.equalsIgnoreCase(motak[i])) {
+				
+				kopurua ++;
+			}
+		}
+		
+		motaBerberekoElikagaiak = new String[kopurua];
+		
+		for (i = 0; i < elikagaiak.length; i ++) {
+			
+			if (elikagaiMota.equalsIgnoreCase(motak[i])) {
+				
+				motaBerberekoElikagaiak[j] = 
+			}
+		}
 	}
 }
