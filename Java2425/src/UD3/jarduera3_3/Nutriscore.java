@@ -10,23 +10,25 @@ public class Nutriscore {
 		// Aldagaiak
 		
 		File file = new File("./files/UD3/janariak.txt");
-		Scanner scFile1 = new Scanner(file);
+		Scanner scFile = new Scanner(file);
 		Scanner sc = new Scanner(System.in);
-		int kopurua = lerroakKontatu(scFile1);
+		int kopurua = lerroakKontatu(scFile);
 		int aukera = 0;
+		boolean elikagaiaDago = false;
 		String[] izenak = new String[kopurua];
 		String[] egoerak = new String[kopurua];
 		String[] motak = new String[kopurua];
-		Double[] kaloriak = new Double[kopurua];
-		Double[] koipeak = new Double[kopurua];
-		Double[] proteinak = new Double[kopurua];
-		Double[] karbohidratoak = new Double[kopurua];
+		String elikagaia = null;
+		double[] kaloriak = new double[kopurua];
+		double[] koipeak = new double[kopurua];
+		double[] proteinak = new double[kopurua];
+		double[] karbohidratoak = new double[kopurua];
 		
 		
 		
 		
 		
-		datuakGorde(file, izenak, egoerak, motak, kaloriak, koipeak, proteinak, karbohidratoak);
+		datuakKargatu(file, izenak, egoerak, motak, kaloriak, koipeak, proteinak, karbohidratoak);
 		
 		do {
 			menuaErakutsi();
@@ -36,6 +38,18 @@ public class Nutriscore {
 			
 			case 1: 
 				
+				elikagaia = elikagaiaEskatu();
+				elikagaiaDago = elikagaiaKonprobatu(izenak, elikagaia);
+				
+				if (elikagaiaDago == true ) {
+					
+					
+				} else {
+					
+					break;
+					
+				}
+				break;
 				
 			}
 		}while (aukera != 0);
@@ -46,14 +60,13 @@ public class Nutriscore {
 
 	}
 
-	private static int lerroakKontatu(Scanner scFile1) throws IOException {
+	private static int lerroakKontatu(Scanner scFile) throws IOException {
 
 		int i = 0;
-		Scanner scFile2 = scFile1;
 
-		while (scFile2.hasNext()) {
+		while (scFile.hasNext()) {
 
-			scFile2.nextLine();
+			scFile.nextLine();
 			i++;
 
 		}
@@ -62,8 +75,8 @@ public class Nutriscore {
 		return i;
 	}
 
-	private static void datuakGorde(File file, String[] izenak, String[] egoerak, String[] motak, Double[] kaloriak,
-			Double[] koipeak, Double[] proteinak, Double[] karbohidratoak) throws IOException {
+	private static void datuakKargatu (File file, String[] izenak, String[] egoerak, String[] motak, double[] kaloriak,
+			double[] koipeak, double[] proteinak, double[] karbohidratoak) throws IOException {
 		
 		int i = 0;
 		Scanner scFile3 = new Scanner(file);
@@ -104,5 +117,50 @@ public class Nutriscore {
 		System.out.println(" 4.- ELIKAGAI BATEN BALORE NUTRIZIONALA BISTARATU.");
 		System.out.println(" 5.- ELIKAGAIA BATEN EGOERA BAKOITZEKO BALORE NUTRIZIONALA BISTARATU.");
 		System.out.println(" 0.- IRTEN.");
+	}
+	
+	private static String elikagaiaEskatu() {
+		
+		Scanner sc = new Scanner(System.in);
+		String eskaera = null;
+		
+		
+		
+		System.out.println("Idatzi elikagai bat.");
+		eskaera = sc.nextLine();
+		
+		return eskaera;
+		
+	}
+	
+	private static boolean elikagaiaKonprobatu(String[] elikagaiak, String elikagaiHautatua) {
+		
+		Scanner sc = new Scanner(System.in);
+		int i = 0;
+		boolean badago = false;
+			
+			for (i = 0; i < elikagaiak.length; i ++) {
+				
+				if (elikagaiHautatua.equalsIgnoreCase(elikagaiak[i])) {
+					
+					badago = true;
+					return badago;
+				}
+			
+			}
+		
+			return badago;
+		
+	}
+	
+	private static void motaBerberekoakBistaratu (String[] elikagaiak, String[] motak, String elikagaia) {
+		
+		String elikagaiMota = null;
+		int i = 0;
+		
+		
+		// Hautatutako elikagaiaren mota topatu
+		
+		for (i = 0; )
 	}
 }
