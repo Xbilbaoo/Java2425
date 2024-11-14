@@ -43,9 +43,11 @@ public class Nutriscore {
 				
 				if (elikagaiaDago == true ) {
 					
+					motaBerberekoakBistaratu(izenak, motak, elikagaia);
 					
 				} else {
 					
+					System.out.println("Aukeratu duzun elikagaia ez dago gure datuen artean. Menura itzuliko zara.");
 					break;
 					
 				}
@@ -160,7 +162,7 @@ public class Nutriscore {
 		
 		int i = 0;
 		int j = 0;
-		int kopurua = 1;
+		int kopurua = 0;
 		
 		// Hautatutako elikagaiaren mota topatu
 		
@@ -181,14 +183,18 @@ public class Nutriscore {
 			}
 		}
 		
+		System.out.println(kopurua);
 		motaBerberekoElikagaiak = new String[kopurua];
 		
 		for (i = 0; i < elikagaiak.length; i ++) {
 			
 			if (elikagaiMota.equalsIgnoreCase(motak[i])) {
 				
-				motaBerberekoElikagaiak[j] = 
+				motaBerberekoElikagaiak[j] = elikagaiak[i];
+				j ++;
 			}
 		}
+		
+		
 	}
 }
