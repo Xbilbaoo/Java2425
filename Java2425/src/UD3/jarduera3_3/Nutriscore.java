@@ -90,6 +90,24 @@ public class Nutriscore {
 				}
 				
 				break;
+			
+			case 4:
+				
+				elikagaia = elikagaiaEskatu();
+				elikagaiaDago = elikagaiaKonprobatu(izenak, elikagaia);
+
+				if (elikagaiaDago == true) {
+
+					egoerakikoBaloreNutizionalaKalkulatu(izenak, egoerak, kaloriak, koipeak, proteinak, karbohidratoak, elikagaia);
+					
+				} else {
+					
+					System.out.println("Aukeratu duzun elikagaia ez dago gure datuen arnten. Menura itzuliko zara.");
+					System.out.println();
+
+				}
+				
+				break;
 			}
 		} while (aukera != 0);
 
@@ -297,5 +315,11 @@ public class Nutriscore {
 		}
 
 		return kopurua;
+	}
+
+	private static void egoerakikoBaloreNutizionalaKalkulatu() {
+		
+		
+		
 	}
 }
