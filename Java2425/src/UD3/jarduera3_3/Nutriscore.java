@@ -24,7 +24,7 @@ public class Nutriscore {
 		double[] proteinak = new double[kopurua];
 		double[] karbohidratoak = new double[kopurua];
 
-		datuakKargatu(file, izenak, egoerak, motak, kaloriak, koipeak, proteinak, karbohidratoak);
+		datuakKargatu(scFile, izenak, egoerak, motak, kaloriak, koipeak, proteinak, karbohidratoak);
 
 		do {
 			menuaErakutsi();
@@ -98,7 +98,7 @@ public class Nutriscore {
 
 				if (elikagaiaDago == true) {
 
-					egoerakikoBaloreNutizionalaKalkulatu(izenak, egoerak, kaloriak, koipeak, proteinak, karbohidratoak, elikagaia);
+					egoerakikoBaloreNutizionalaKalkulatu(izenak, egoerak, kaloriak, koipeak, proteinak, karbohidratoak, elikagaia, sc);
 					
 				} else {
 					
@@ -128,17 +128,16 @@ public class Nutriscore {
 		return i;
 	}
 
-	private static void datuakKargatu(File file, String[] izenak, String[] egoerak, String[] motak, double[] kaloriak,
+	private static void datuakKargatu(Scanner scFile, String[] izenak, String[] egoerak, String[] motak, double[] kaloriak,
 			double[] koipeak, double[] proteinak, double[] karbohidratoak) throws IOException {
 
 		int i = 0;
-		Scanner scFile2 = new Scanner(file);
 		String lerroa = null;
 		String[] zatiak;
 
-		while (scFile2.hasNext()) {
+		while (scFile.hasNext()) {
 
-			lerroa = scFile2.nextLine();
+			lerroa = scFile.nextLine();
 			zatiak = lerroa.split(";");
 			izenak[i] = zatiak[0];
 			egoerak[i] = zatiak[1];
@@ -317,7 +316,23 @@ public class Nutriscore {
 		return kopurua;
 	}
 
-	private static void egoerakikoBaloreNutizionalaKalkulatu() {
+	private static void egoerakikoBaloreNutizionalaKalkulatu(String[] elikagaiak, String[] egoerak, double[] kaloriak, double[] koipeak, double[] proteinak, double[] karbohidratoak, String elikagaia, Scanner sc) {
+		
+		int i = 0;
+		int j = 1;
+		
+		
+		
+		System.out.println(elikagaia.toUpperCase() + " elikagaiaren zein egoerako balore nutrizional nahi dituzu jakin?");
+		
+		for (i = 0; i < elikagaiak.length; i ++) {
+			
+			if (elikagaia.equalsIgnoreCase(elikagaiak[i]) ) {
+				
+				
+				
+			}
+		}
 		
 		
 		
