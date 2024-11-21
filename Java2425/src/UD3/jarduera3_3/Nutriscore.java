@@ -24,6 +24,7 @@ public class Nutriscore {
 		double[] proteinak = new double[kopurua];
 		double[] karbohidratoak = new double[kopurua];
 
+		scFile = new Scanner(file);
 		datuakKargatu(scFile, izenak, egoerak, motak, kaloriak, koipeak, proteinak, karbohidratoak);
 
 		do {
@@ -35,8 +36,9 @@ public class Nutriscore {
 			case 1:
 
 				elikagaia = elikagaiaEskatu();
-				elikagaiaDago = elikagaiaKonprobatu(izenak, elikagaia);
 
+				elikagaiaDago = elikagaiaKonprobatu(izenak, elikagaia);
+				elikagaiaDago = true;
 				if (elikagaiaDago == true) {
 
 					motaBerberekoakBistaratu(izenak, motak, elikagaia);
@@ -66,7 +68,6 @@ public class Nutriscore {
 
 					System.out.println("Aukeratu duzun elikagaia ez dago gure datuen arnten. Menura itzuliko zara.");
 					System.out.println();
-			
 
 				}
 
@@ -81,32 +82,33 @@ public class Nutriscore {
 
 					System.out.println(elikagaia.toUpperCase() + " mota berbero elikagai kopurua hurrengoa da: "
 							+ motaBerberekoElikagaiakKontatu(izenak, motak, elikagaia));
-					
+
 				} else {
-					
+
 					System.out.println("Aukeratu duzun elikagaia ez dago gure datuen arnten. Menura itzuliko zara.");
 					System.out.println();
 
 				}
-				
+
 				break;
-			
+
 			case 4:
-				
+
 				elikagaia = elikagaiaEskatu();
 				elikagaiaDago = elikagaiaKonprobatu(izenak, elikagaia);
 
 				if (elikagaiaDago == true) {
 
-					egoerakikoBaloreNutizionalaKalkulatu(izenak, egoerak, kaloriak, koipeak, proteinak, karbohidratoak, elikagaia, sc);
-					
+					egoerakikoBaloreNutizionalaKalkulatu(izenak, egoerak, kaloriak, koipeak, proteinak, karbohidratoak,
+							elikagaia, sc);
+
 				} else {
-					
+
 					System.out.println("Aukeratu duzun elikagaia ez dago gure datuen arnten. Menura itzuliko zara.");
 					System.out.println();
 
 				}
-				
+
 				break;
 			}
 		} while (aukera != 0);
@@ -128,8 +130,8 @@ public class Nutriscore {
 		return i;
 	}
 
-	private static void datuakKargatu(Scanner scFile, String[] izenak, String[] egoerak, String[] motak, double[] kaloriak,
-			double[] koipeak, double[] proteinak, double[] karbohidratoak) throws IOException {
+	private static void datuakKargatu(Scanner scFile, String[] izenak, String[] egoerak, String[] motak,
+			double[] kaloriak, double[] koipeak, double[] proteinak, double[] karbohidratoak) throws IOException {
 
 		int i = 0;
 		String lerroa = null;
@@ -181,7 +183,6 @@ public class Nutriscore {
 
 	private static boolean elikagaiaKonprobatu(String[] elikagaiak, String elikagaiHautatua) {
 
-		Scanner sc = new Scanner(System.in);
 		int i = 0;
 		boolean badago = false;
 
@@ -190,7 +191,7 @@ public class Nutriscore {
 			if (elikagaiHautatua.equalsIgnoreCase(elikagaiak[i])) {
 
 				badago = true;
-				return badago;
+
 			}
 
 		}
@@ -316,25 +317,34 @@ public class Nutriscore {
 		return kopurua;
 	}
 
-	private static void egoerakikoBaloreNutizionalaKalkulatu(String[] elikagaiak, String[] egoerak, double[] kaloriak, double[] koipeak, double[] proteinak, double[] karbohidratoak, String elikagaia, Scanner sc) {
-		
+	private static void egoerakikoBaloreNutizionalaKalkulatu(String[] elikagaiak, String[] egoerak, double[] kaloriak,
+			double[] koipeak, double[] proteinak, double[] karbohidratoak, String elikagaia, Scanner sc) {
+
 		int i = 0;
-		int j = 1;
-		
-		
-		
-		System.out.println(elikagaia.toUpperCase() + " elikagaiaren zein egoerako balore nutrizional nahi dituzu jakin?");
-		
-		for (i = 0; i < elikagaiak.length; i ++) {
-			
-			if (elikagaia.equalsIgnoreCase(elikagaiak[i]) ) {
-				
-				
-				
+		int j = 0;
+		String[] elikagaiEgoerak;
+
+		for (i = 0; i < elikagaiak.length; i++) {
+
+			if (elikagaia.equalsIgnoreCase(elikagaiak[i])) {
+
+				j++;
+
 			}
 		}
+
+		elikagaiEgoerak = new String[j];
+		j = 0;
 		
-		
-		
+		for (i = 0; i < elikagaiak.length; i++) {
+
+			if (elikagaia.equalsIgnoreCase(elikagaiak[i])) {
+
+				elikagaiEgoerak[j] = egoerak[i];
+				j ++;
+
+			}
+		}
+
 	}
 }
