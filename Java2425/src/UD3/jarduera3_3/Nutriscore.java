@@ -69,7 +69,7 @@ public class Nutriscore {
 					
 					System.out.println("Aukeratu duzun elikagaia ez dago gure datuen artean. Menura itzuliko zara.");
 					break;
-
+				}
 			case 3:
 
 				elikagaia = elikagaiaEskatu();
