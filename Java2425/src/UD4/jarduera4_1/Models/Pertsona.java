@@ -2,14 +2,14 @@ package UD4.jarduera4_1.Models;
 
 public class Pertsona {
 	
-	// ATTRIBUTES
+	// ATTRIBUTES //
 	
 	private String izena;
 	private int adina;
 	private String dni;
 	
 	
-	// CONSTRUCTORS
+	// CONSTRUCTORS //
 	
 	public Pertsona() {
 	
@@ -19,7 +19,7 @@ public class Pertsona {
 	
 	
 	
-	// GETTERS
+	// GETTERS //
 	
 	public String getIzena() {
 		return izena;
@@ -37,7 +37,7 @@ public class Pertsona {
 	
 	
 	
-	// SETTERS
+	// SETTERS //
 	
 	public void setIzena(String izena) {
 		this.izena = izena;
@@ -51,4 +51,15 @@ public class Pertsona {
 		this.dni = dni;
 	}
 	
+	
+	
+	
+	
+	// TO STRING METHOD //
+	
+	public String toString() {
+		
+		return "Pertsona [izena=" + izena + ", adina=" + adina + ", dni=" + dni + "]";
+		
+	}
 }
