@@ -19,7 +19,8 @@ public class AurikularAPP {
 		Scanner sc = new Scanner(System.in);
 		String aurikularra = null;
 		boolean badago = false;
-		// CREATING AN ARRAYLIST FOR THE MODEL "AURIKULAR" //
+		
+			// CREATING AN ARRAYLIST FOR THE MODEL "AURIKULAR" //
 
 		ArrayList<Aurikular> aurikularList = new ArrayList<Aurikular>();
 
