@@ -96,14 +96,8 @@ public class Aurikular {
 	
 	public String toString() {
 		
-		return "Aurikular [modelo=" + modelo + ", marka=" + marka + ", prezioa=" + prezioa + ", stock=" + stock + "]";
+		return modelo + ";" + marka + ";" + prezioa + ";" + stock;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
