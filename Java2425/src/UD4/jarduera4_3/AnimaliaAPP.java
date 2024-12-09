@@ -28,6 +28,11 @@ public class AnimaliaAPP {
 
 		ArrayList<Animalia> animaliaList = new ArrayList<Animalia>();
 
+		
+		
+		
+		
+		
 		// THE PROGRAMM //
 
 		ArraiListBete(file, scFile, animaliaList);
@@ -83,6 +88,11 @@ public class AnimaliaAPP {
 		sc.close();
 	}
 
+	
+	
+	
+	
+	
 	// METHODS //
 
 	private static void ArraiListBete(File file, Scanner scFile, ArrayList<Animalia> animaliaList) {
@@ -245,4 +255,5 @@ public class AnimaliaAPP {
 			}
 		}
 	}
+	
 }
