@@ -62,4 +62,9 @@ public class Pertsona {
 		return "Pertsona [izena=" + izena + ", adina=" + adina + ", dni=" + dni + "]";
 		
 	}
+	
+	public String saveData() {
+		
+		return izena + ";" + adina + ";" + dni;
+	}
 }

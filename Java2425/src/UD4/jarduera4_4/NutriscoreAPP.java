@@ -58,15 +58,15 @@ public class NutriscoreAPP {
 
 				posiziokoDatuakIkusi(sc, elikagaiList);
 				break;
-				
+
 			case 3:
-				
+
 				elikagaia = elikagaiaEskatu(sc);
 				elikagaiaDago = elikagaiaKonprobatu(elikagaiList, elikagaia);
 
 				if (elikagaiaDago == true) {
 
-					kaloriakKalkulatu(elikagaiList, elikagaia);
+					kaloriakKalkulatu(sc, elikagaiList, elikagaia);
 					break;
 
 				} else {
@@ -75,6 +75,21 @@ public class NutriscoreAPP {
 					break;
 				}
 
+			case 4:
+				
+				datuakGorde(file, elikagaiList);
+				break;
+			
+			case 0:
+				
+				System.out.println("Eskerrik asko gure programa erabiltzeagaitik!!");
+				break;
+				
+			default:
+				
+				System.out.println("Aukera hori ez dagu menuan.");
+				break;
+				
 			}
 
 		} while (aukera != 0);
@@ -90,6 +105,8 @@ public class NutriscoreAPP {
 		String line = null;
 		String[] data;
 
+		// METHOD //
+		
 		while (scFile.hasNext()) {
 
 			// SPLIT EACH LINE BY THE SEPARATOR OF THE FILE //
@@ -146,6 +163,8 @@ public class NutriscoreAPP {
 
 		System.out.println("Idatzi elikagai bat.");
 		eskaera = sc.nextLine();
+		
+		eskaera = eskaera.toUpperCase();
 
 		return eskaera;
 
@@ -212,7 +231,7 @@ public class NutriscoreAPP {
 
 		}
 
-		elikagaiKokapena --;
+		elikagaiKokapena--;
 
 		do {
 			balioMenuaErakutsi();
@@ -285,21 +304,128 @@ public class NutriscoreAPP {
 
 	}
 
-	private static void kaloriakKalkulatu(ArrayList<Elikagaia> elikagaiList, String elikagaia) {
-		
+	private static void kaloriakKalkulatu(Scanner sc, ArrayList<Elikagaia> elikagaiList, String elikagaia) {
+
 		// VARIABLES //
-		
+
+		String egoera;
 		int i = 0;
-		double kaloriak100Gramoko = 0;
+		double pisua = 0;
+		double kaloriaKalkulatuak = 0;
+		boolean egoeraDago = false;
+
+		// METHOD //
+
+		egoera = egoeraEskatu(sc, elikagaiList, elikagaia);
+		egoeraDago = egoeraKonprobatu(elikagaiList, elikagaia, egoera);
+
+		if (egoeraDago == true) {
+
+			System.out.println("Zenbat pisu du " + elikagaia + " (" + egoera + ")" + " elikagaiak? (Gramoetan idatzi)");
+			pisua = Double.parseDouble(sc.nextLine());
+
+			for (i = 0; i < elikagaiList.size(); i++) {
+
+				if (elikagaia.equalsIgnoreCase(elikagaiList.get(i).getIzena())) {
+
+					kaloriaKalkulatuak = elikagaiList.get(i).getKaloriak() * pisua / 100;
+
+				}
+
+			}
+
+			System.out.println("Emandako datuekin hauek dira kalkulatutako kaloriak: " + kaloriaKalkulatuak + " kcal.");
+
+		} else {
+
+			System.out.println(elikagaia + " elikagaiak ez du egoera hau gure datuen artean.");
+		}
+
+	}
+
+	private static String egoeraEskatu(Scanner sc, ArrayList<Elikagaia> elikagaiList, String elikagaia) {
+
+		// VARIABLES //
+
+		String egoera = null;
+		int i = 0;
+		int k = 1;
 		
 		// METHOD //
+
+		System.out.println(elikagaia + " elikagaiaren zein egoeraren kaloriak kakulatu nahi dituzu?");
 		
 		for (i = 0; i < elikagaiList.size(); i ++) {
 			
 			if (elikagaia.equalsIgnoreCase(elikagaiList.get(i).getIzena())) {
 				
+				System.out.println( k + ".- " + elikagaiList.get(i).getEgoera());
+				k ++;
 				
 			}
+			
 		}
+		
+		egoera = sc.nextLine();
+
+		egoera = egoera.toUpperCase();
+
+		return egoera;
+
+	}
+
+	private static boolean egoeraKonprobatu(ArrayList<Elikagaia> elikagaiList, String elikagaia, String egoera) {
+
+		// VARIABLES //
+
+		int i = 0;
+
+		// METHOD //
+
+		for (i = 0; i < elikagaiList.size(); i++) {
+
+			if (elikagaia.equalsIgnoreCase(elikagaiList.get(i).getIzena())
+					&& egoera.equalsIgnoreCase(elikagaiList.get(i).getEgoera())) {
+
+				return true;
+
+			}
+
+		}
+
+		return false;
+
+	}
+
+	private static void datuakGorde(File file, ArrayList<Elikagaia> elikagaiList) {
+		
+		// VARIABLES //
+		
+		int i = 0;
+		
+		// TRY-CATCH METHOD TO SAVE THE DATA TO THE FILE // 
+		
+		try {
+			
+			PrintWriter pw = new PrintWriter(file);
+
+			for (i = 0; i < elikagaiList.size(); i++) {
+
+				pw.println(elikagaiList.get(i).saveData());
+
+			}
+
+			pw.close();
+		
+		} catch (FileNotFoundException e) {
+
+			System.out.println("Datuek ez dira ondo gorde!!");
+			
+		}
+		
+		System.out.println("Datuak ondo gorde dira!!");
+
+		
+		
 	}
 }

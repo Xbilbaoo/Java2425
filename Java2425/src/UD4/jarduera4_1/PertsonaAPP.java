@@ -1,7 +1,5 @@
 package UD4.jarduera4_1;
 
-
-
 // IMPORTED PACKAGES //
 
 import java.util.ArrayList;
@@ -21,9 +19,6 @@ public class PertsonaAPP {
 		Scanner sc = new Scanner(System.in);
 		File file = new File("./files/UD4/pertsonak.txt");
 		Scanner scFile = new Scanner(file);
-		PrintWriter pw = new PrintWriter(file);
-		
-		
 
 		// CREATING THE ARRAYLIST FOR THE CLASS "PERTSONA" //
 
@@ -70,22 +65,21 @@ public class PertsonaAPP {
 
 				dniErakutsi(pertsonaList);
 				break;
-				
+
 			case 4:
-				
+
 				karaktereBidezTopatu(pertsonaList);
 				break;
 
 			case 5:
-				
-				datuakGorde(file, pw, pertsonaList);
+
+				datuakGorde(file, pertsonaList);
 			}
 
 		} while (aukera != 0);
 
 		sc.close();
 		scFile.close();
-		pw.close();
 
 	}
 
@@ -114,12 +108,14 @@ public class PertsonaAPP {
 
 		System.out.println("Idatzi pertsonaren izena.");
 		pertsona.setIzena(sc.nextLine());
+		pertsona.setIzena(pertsona.getIzena().toLowerCase());
 
 		System.out.println("Idatzi pertsonaren adina.");
 		pertsona.setAdina(Integer.parseInt(sc.nextLine()));
 
 		System.out.println("Idatzi pertsonaren DNI-a.");
 		pertsona.setDni(sc.nextLine());
+		pertsona.setDni(pertsona.getDni().toUpperCase());
 
 		// ADD THE OBJECT TO THE ARRAYLIST //
 
@@ -197,32 +193,47 @@ public class PertsonaAPP {
 		// METHOD //
 
 		for (i = 0; i < pertsonaList.size(); i++) {
-			
+
 			System.out.println(pertsonaList.get(i).getIzena().toUpperCase() + " pertsonaren DNI-a: "
 					+ pertsonaList.get(i).getDni().toUpperCase());
 
 		}
-		
+
 	}
-	
+
 	private static void karaktereBidezTopatu(ArrayList<Pertsona> pertsonaList) {
-		
+
 		// VARIABLES //
-		
+
 	}
-	
-	private static void datuakGorde(File file, PrintWriter pw, ArrayList<Pertsona> pertsonaList) {
-		
+
+	private static void datuakGorde(File file, ArrayList<Pertsona> pertsonaList) {
+
 		// VARIABLES //
-		
+
 		int i = 0;
-		
-		// METHOD //
-		
-		for (i = 0; i < pertsonaList.size(); i ++) {
-			
-			pw.println(pertsonaList.toString());
-			
+
+		// TRY-CATCH METHOD TO SAVE EACH LINE ON A FILE //
+
+		try {
+
+			PrintWriter pw = new PrintWriter(file);
+
+			for (i = 0; i < pertsonaList.size(); i++) {
+
+				pw.println(pertsonaList.get(i).saveData());
+
+			}
+
+			pw.close();
+
+		} catch (FileNotFoundException e) {
+
+			System.out.println("Datuek ez dira ondo gorde!!");
+
 		}
+
+		System.out.println("Datuak ondo gorde dira!!");
+
 	}
 }
