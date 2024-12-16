@@ -184,18 +184,27 @@ public class Pertsona {
 		return imc;
 		
 	}
+
+		// METHOD TO SEE IF A PERSSON IS HIGH AGED OR NOT //
 	
 	public boolean adinezNagusi(int adina) {
 		
-		if (adina < 18) {
-			
-			return false;
-			
-		} else {
+		if (adina > 18) {
 			
 			return true;
 			
+		} else {
+			
+			return false;
+			
 		}
+	}
+	
+		// METHOD TO SAVE EACH INSTANCE ON A LINE //
+	
+	public String saveData() {
+		
+		return izena + ";" + adina + ";" + nan + ";" + sexua + ";" + pisua + ";" + altuera;
 	}
 }
 
