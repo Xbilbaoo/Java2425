@@ -35,21 +35,31 @@ public class Taxi extends Ibilgailua {
 
 	}
 
+	
+	
+	
+	
 	// TO STRING //
 
+	@Override
 	public String toString() {
 
 		return "Taxi [lizentziaZenbakia=" + lizentziaZenbakia + "]";
 
 	}
 
+	
+	
+	
+	
 	// METHODS //
 
-	// METHOD TO SAVE EACH INSTANCE ON CSV LINE //
+		// METHOD TO SAVE EACH INSTANCE ON CSV LINE //
 
 	public String saveData() {
 
-		return this.getMatrikula() + ";" + this.getModeloa() + ";" + this.getPotentzia() + ";" + this.getPlazaKopurua()
-				+ ";" + this.getKolorea() + ";" + lizentziaZenbakia;
+		return getMatrikula() + ";" + getModeloa() + ";" + getPotentzia() + ";" + getPlazaKopurua()
+				+ ";" + getKolorea() + ";" + lizentziaZenbakia;
+	
 	}
 }
