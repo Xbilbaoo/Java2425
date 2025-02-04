@@ -94,7 +94,7 @@ public class EskaeraConnect {
 		
 		Eskaera esk = new Eskaera();
 		
-		
+		// TRY CATCH TO "CATCH" ANY EXCEPTION DURING THE CONNECTION OR OBTAINING THE DATA //
 		
 		try {
 			

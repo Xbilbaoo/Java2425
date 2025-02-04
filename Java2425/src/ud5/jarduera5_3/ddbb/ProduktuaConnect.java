@@ -21,7 +21,6 @@ public class ProduktuaConnect {
 		try {
 
 			connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Datu basera konektatuta");
 
 		} catch (SQLException e) {
 
@@ -95,7 +94,7 @@ public class ProduktuaConnect {
 			
 			st = con.createStatement();
 			
-			query = "SELECT * FROM pedidos;";
+			query = "SELECT * FROM productos;";
 			
 			rs = (ResultSet) st.executeQuery(query);
 			
@@ -137,7 +136,7 @@ public class ProduktuaConnect {
 			
 			st = con.createStatement();
 			
-			query = "SELECT AVG(precio) AS average FROM pedidos;";
+			query = "SELECT AVG(precio) AS average FROM productos;";
 			
 			rs =(ResultSet) st.executeQuery(query);
 			

@@ -2,8 +2,10 @@ package ud5.jarduera5_3.ddbb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import ud5.jarduera5_3.models.Bezeroa;
 
@@ -19,7 +21,6 @@ public class BezeroaConnect {
 		try {
 
 			connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Datu basera konektatuta");
 
 		} catch (SQLException e) {
 
@@ -77,5 +78,46 @@ public class BezeroaConnect {
 		}
 		
 	}
-
+	
+	public ArrayList<Bezeroa> getBezeroak() {
+		
+		Connection con = connection();
+		Statement st;
+		String query;
+		ResultSet rs;
+		
+		ArrayList<Bezeroa> bezeroList = new ArrayList<Bezeroa>();
+		
+		Bezeroa b = new Bezeroa();
+		
+		try {
+			
+			st = con.createStatement();
+			
+			query = "SELECT * FROM clientes;";
+			rs = (ResultSet) st.executeQuery(query);
+			
+			while (rs.next()) {
+				
+				b = new Bezeroa();
+				
+				b.setId(rs.getString("id"));
+				b.setNombre(rs.getString("nombre"));
+				b.setDireccion(rs.getString("direccion"));
+				b.setCodPostal(rs.getString("codPostal"));
+				b.setTelefono(rs.getString("telefono"));
+				
+				bezeroList.add(b);
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			System.err.println("ERROR in method getBezeroak");
+			System.err.println(e.getMessage());
+		}
+		
+		return bezeroList;
+		
+	}
 }
