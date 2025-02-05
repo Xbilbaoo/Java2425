@@ -40,7 +40,7 @@ public class AlmacenAPP {
 				
 			case 4:
 				
-				System.out.println("Hau da gure prodoktuen batazbesteko prezioa: " + procon.produktuenBatazBestekoaBistaratu());
+				System.out.println("Hau da gure prodoktuen batazbesteko prezioa: " + procon.produktuenBatazBestekoaBistaratu() + "€");
 				break;
 				
 			case 0:
