@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import ud5.jarduera5_1.models.Futbolista;
+import ud6.jarduera2.models.Futbolista;
 
 public class FutbolistaConnect {
 

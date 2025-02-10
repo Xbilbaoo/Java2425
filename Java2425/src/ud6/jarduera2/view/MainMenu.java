@@ -64,6 +64,14 @@ public class MainMenu extends JFrame {
 		contentPane.setLayout(new GridLayout(0, 2, 5, 5));
 
 		JButton btnOption1 = new JButton("1. Jokalariak Ikusi");
+		btnOption1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				JokalariGuztiak f = new JokalariGuztiak();
+				f.setVisible(true);
+			}
+		});
 		contentPane.add(btnOption1);
 
 		JButton btnOption3 = new JButton("3. Jokalari berri bat sortu\r\n");
@@ -74,38 +82,11 @@ public class MainMenu extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TaldeaConnect talcon = null;
-				JFrame frame = new JFrame(btnOption2.getText());
-				JPanel panel = new JPanel(new BorderLayout());
-				DefaultTableModel dtm = new DefaultTableModel();
-				JTable table = new JTable(dtm);
-				String[] columns_data = { "idTaldea", "izena", "herria" };
-				JScrollPane scroll = new JScrollPane(table);
-
-				for (String i : columns_data) {
-					dtm.addColumn(i);
-				}
-
-				try {
-					talcon = new TaldeaConnect();
-					for (Taldea i: talcon.getTaldeak()) {
-
-						dtm.addRow(new Object[] { i.getIdTaldea(), i.getIzena(), i.getHerria() });
-
-					}
-				} catch (SQLException e1) {
-
-					e1.printStackTrace();
-				}
-
-				panel.add(scroll, BorderLayout.CENTER);
-				frame.setContentPane(panel);
-				frame.setSize(600, 450);
-				frame.setLocationRelativeTo(null);
-				frame.setResizable(false);
-				frame.setVisible(true);
+				
+				TaldeGuztiak f = new TaldeGuztiak();
+				f.setVisible(true);
+				
 			}
-
 		});
 
 		contentPane.add(btnOption2);
@@ -124,8 +105,7 @@ public class MainMenu extends JFrame {
 		lblnfo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblnfo);
 
-		Icon icon = new ImageIcon(
-				"C:\\Users\\1AW3-5\\git\\Java2425\\Java2425\\src\\ud6\\jarduera2\\view\\img\\exit.png");
+		Icon icon = new ImageIcon("src/ud6/jarduera2/view/img/exit.png");
 		JButton btnExit = new JButton(icon);
 		btnExit.addMouseListener(new MouseAdapter() {
 
