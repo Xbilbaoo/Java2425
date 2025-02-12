@@ -1,4 +1,4 @@
-package ud6.jarduera2.ddbb;
+package ud6.jarduera2.controller.ddbb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -45,7 +45,8 @@ public class FutbolistaConnect {
 		Connection con = conexion();
 		Statement st = con.createStatement();
 		String consulta = "INSERT INTO futbolistas " + "(DNI, nombre, apellido, salario, idEquipo) " + "VALUES ('"
-				+ fut.getNan() + "', '" + fut.getIzena() + "', '" + fut.getAbizena() + "', '" + "', '" + fut.getIdTaldea() + "');";
+				+ fut.getNan() + "', '" + fut.getIzena() + "', '" + fut.getAbizena() + "', '" + "', '"
+				+ fut.getIdTaldea() + "');";
 
 		boolean emaitza = st.execute(consulta);
 		System.out.println(emaitza);
@@ -64,26 +65,33 @@ public class FutbolistaConnect {
 
 	}
 
-	public ArrayList<Futbolista> getFutbolistak() throws SQLException {
+	public ArrayList<Futbolista> getFutbolistak() {
 
-		Connection con = conexion();
-		Statement st = con.createStatement();
-		String consulta = "SELECT * FROM futbolistas;";
-		ResultSet resultSet = (ResultSet) st.executeQuery(consulta);
 		ArrayList<Futbolista> futbolistaList = new ArrayList<Futbolista>();
-		Futbolista fut = new Futbolista();
 
-		while (resultSet.next()) {
+		try {
 
-			fut = new Futbolista();
+			Connection con = conexion();
+			Statement st = con.createStatement();
+			String consulta = "SELECT * FROM futbolistas;";
+			ResultSet resultSet = (ResultSet) st.executeQuery(consulta);
+			Futbolista fut = new Futbolista();
 
-			fut.setNan(resultSet.getString("dni"));
-			fut.setIzena(resultSet.getString("nombre"));
-			fut.setAbizena(resultSet.getString("apellido"));
-			fut.setSoldata(resultSet.getInt("salario"));
-			fut.setIdTaldea(resultSet.getInt("idEquipo"));
-			futbolistaList.add(fut);
-			fut.toString();
+			while (resultSet.next()) {
+
+				fut = new Futbolista();
+
+				fut.setNan(resultSet.getString("dni"));
+				fut.setIzena(resultSet.getString("nombre"));
+				fut.setAbizena(resultSet.getString("apellido"));
+				fut.setSoldata(resultSet.getInt("salario"));
+				fut.setIdTaldea(resultSet.getInt("idEquipo"));
+				futbolistaList.add(fut);
+				fut.toString();
+			}
+		} catch (SQLException e) {
+			
+			System.err.println("ERROR in method getFutbolistak()");
 		}
 		return futbolistaList;
 	}

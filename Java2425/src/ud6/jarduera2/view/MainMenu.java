@@ -9,10 +9,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import ud6.jarduera2.ddbb.FutbolistaConnect;
-import ud6.jarduera2.ddbb.TaldeaConnect;
-import ud6.jarduera2.models.Futbolista;
-import ud6.jarduera2.models.Taldea;
+import ud6.jarduera2.controller.ddbb.FutbolistaConnect;
+import ud6.jarduera2.controller.ddbb.TaldeaConnect;
+import ud6.jarduera2.controller.FutbolistaController;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -68,27 +67,21 @@ public class MainMenu extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				JokalariGuztiak f = new JokalariGuztiak();
-				f.setVisible(true);
+				FutbolistaConnect futcon = new FutbolistaConnect();
+				FutbolistaFrame futFrame = new FutbolistaFrame();
+				FutbolistaController futctrl = new FutbolistaController(futFrame, futcon);
+				
+				futctrl.showPlayers();
+				
 			}
 		});
 		contentPane.add(btnOption1);
+		
 
 		JButton btnOption3 = new JButton("3. Jokalari berri bat sortu\r\n");
 		contentPane.add(btnOption3);
 
 		JButton btnOption2 = new JButton("2. Taldeak Ikusi");
-		btnOption2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				TaldeGuztiak f = new TaldeGuztiak();
-				f.setVisible(true);
-				
-			}
-		});
-
 		contentPane.add(btnOption2);
 
 		JButton btnOption4 = new JButton("4. Talde berri bat sortu");
