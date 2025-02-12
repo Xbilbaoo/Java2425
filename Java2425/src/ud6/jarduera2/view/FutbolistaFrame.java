@@ -2,14 +2,22 @@ package ud6.jarduera2.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import ud6.jarduera2.controller.FutbolistaController;
+
+import javax.swing.JTextArea;
 
 public class FutbolistaFrame extends JFrame {
 
@@ -38,44 +46,74 @@ public class FutbolistaFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public FutbolistaFrame() {
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
-	}
-	
-	 public void showAllPlayers(Object[][] datos, String[] columnas) {
-	        // Crear la ventana para mostrar los futbolistas
-	        JFrame ventanaFutbolistas = new JFrame("Futbolistas");
-	        ventanaFutbolistas.setSize(600, 400);
-	        ventanaFutbolistas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        
-	        // Crear la tabla con los datos
-	        futTable = new JTable(datos, columnas);
-	        JScrollPane scrollPane = new JScrollPane(futTable);
-	        
-	        // Crear el botón de volver
-	        btnExit = new JButton("Itzuli");
-	        btnExit.addActionListener(e -> ventanaFutbolistas.dispose());
-	        
-	        // Agregar componentes
-	        ventanaFutbolistas.setLayout(new BorderLayout());
-	        ventanaFutbolistas.add(scrollPane, BorderLayout.CENTER);
-	        ventanaFutbolistas.add(btnExit, BorderLayout.SOUTH);
-	        
-	        // Hacer la ventana visible
-	        ventanaFutbolistas.setVisible(true);
-	    
-	 }
+		contentPane.setLayout(null);
 
-	public void setActionListener(ActionListener listener) {
-		
-		
-		
 	}
 
+	public void showAllPlayers(Object[][] data, String[] columns) {
+
+		// Crear la ventana para mostrar los futbolistas
+		JFrame view = new JFrame("Futbolistas");
+		view.setSize(600, 400);
+		view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		// Crear la tabla con los datos
+		futTable = new JTable(data, columns);
+		JScrollPane scrollPane = new JScrollPane(futTable);
+
+		// Crear el botón de volver
+		btnExit = new JButton("Itzuli");
+		btnExit.addActionListener(e -> view.dispose());
+
+		// Agregar componentes
+		view.getContentPane().setLayout(new BorderLayout());
+		view.getContentPane().add(scrollPane, BorderLayout.CENTER);
+		view.getContentPane().add(btnExit, BorderLayout.SOUTH);
+
+		// Hacer la ventana visible
+		view.setVisible(true);
+
+	}
+
+	public void searchPlayer(Object[][] data, String[] columns) {
+
+		JFrame view = new JFrame("Futbolistas");
+		view.setSize(600, 400);
+		view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		JLabel lblID = new JLabel("Jokalariaren ID-a");
+		lblID.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblID.setBounds(40, 100, 145, 15);
+		
+		JTextField tfID = new JTextField();
+		tfID.setBounds(170, 98, 100, 20);
+		
+		JButton btnSearch = new JButton("Bilatu");
+		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSearch.setBounds(290, 98, 85, 21);
+		
+		JTable searchTable = new JTable(data, columns);
+		searchTable.setBounds(40, 170, 1, 1);
+		
+		JButton btnExit = new JButton("ITZULI");
+		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnExit.setBounds(491, 332, 85, 21);
+		btnExit.addActionListener(e -> view.dispose());
+		
+		view.getContentPane().setLayout(null);
+		view.getContentPane().add(lblID);
+		view.getContentPane().add(tfID);
+		view.getContentPane().add(btnExit);
+		
+		view.setVisible(true);
+		
+		
+	}
 }

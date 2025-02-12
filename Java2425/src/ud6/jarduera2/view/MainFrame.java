@@ -29,10 +29,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class MainMenu extends JFrame {
+public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private FutbolistaFrame futView = new FutbolistaFrame();
+	private FutbolistaConnect futcon = new FutbolistaConnect();
+	private JFrame teamView;
 
 	/**
 	 * Launch the application.
@@ -41,7 +44,7 @@ public class MainMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenu frame = new MainMenu();
+					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +56,7 @@ public class MainMenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainMenu() {
+	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -63,31 +66,50 @@ public class MainMenu extends JFrame {
 		contentPane.setLayout(new GridLayout(0, 2, 5, 5));
 
 		JButton btnOption1 = new JButton("1. Jokalariak Ikusi");
+
 		btnOption1.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				
-				FutbolistaConnect futcon = new FutbolistaConnect();
-				FutbolistaFrame futFrame = new FutbolistaFrame();
-				FutbolistaController futctrl = new FutbolistaController(futFrame, futcon);
-				
+
+				FutbolistaController futctrl = new FutbolistaController(futView, futcon);
+
 				futctrl.showPlayers();
-				
+
 			}
+
 		});
+
 		contentPane.add(btnOption1);
-		
 
 		JButton btnOption3 = new JButton("3. Jokalari berri bat sortu\r\n");
 		contentPane.add(btnOption3);
 
 		JButton btnOption2 = new JButton("2. Taldeak Ikusi");
+
+		btnOption2.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		contentPane.add(btnOption2);
 
 		JButton btnOption4 = new JButton("4. Talde berri bat sortu");
 		contentPane.add(btnOption4);
 
 		JButton btnOption5 = new JButton("5. Jokalaria bilatu");
+		btnOption5.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				FutbolistaController futctrl = new FutbolistaController(futView, futcon);
+
+				
+				futView.searchPlayer(null, null);
+				
+
+			}
+		});
 		contentPane.add(btnOption5);
 
 		JButton btnNewButton_5 = new JButton("6. Taldea bilatu");

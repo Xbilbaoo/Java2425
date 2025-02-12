@@ -14,14 +14,10 @@ public class FutbolistaController {
 	private FutbolistaConnect model;
 
 	public FutbolistaController(FutbolistaFrame view, FutbolistaConnect model) {
+		
 		this.view = view;
 		this.model = model;
-		this.view.setActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
+		
 	}
 
 	public void showPlayers() {
@@ -42,4 +38,23 @@ public class FutbolistaController {
 		view.showAllPlayers(data, columns);
 
 	}
+	
+	public void searchPlayerID () {
+		
+		view
+		Futbolista fut = model.getFutbolistaIDtik();
+		String[] columns = { "NAN", "Izena", "Abizena", "Soldata", "IDTaldea" };
+		Object[][] data = new Object[1][5];
+
+			data[0][0] = fut.getNan();
+			data[0][1] = fut.getIzena();
+			data[0][2] = fut.getAbizena();
+			data[0][3] = fut.getSoldata();
+			data[0][4] = fut.getIdTaldea();
+		
+		view.searchPlayer(data, columns);
+		
+	}
+	
+	
 }

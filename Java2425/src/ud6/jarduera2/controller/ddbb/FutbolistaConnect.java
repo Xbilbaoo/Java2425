@@ -27,16 +27,28 @@ public class FutbolistaConnect {
 		return connection;
 	}
 
-	public Futbolista getFutbolistaIDtik(String id) throws SQLException {
-		Connection con = conexion();
-		Statement st = con.createStatement();
-		String consulta = "SELECT * FROM futbolistas WHERE dni='" + id + "';";
-		ResultSet resultSet = (ResultSet) st.executeQuery(consulta);
+	public Futbolista getFutbolistaIDtik(String id) {
+
 		Futbolista fut = new Futbolista();
-		while (resultSet.next()) {
-			String izena = resultSet.getString("nombre");
-			String abizenak = resultSet.getString("apellido");
-			fut = new Futbolista(id, izena, abizenak);
+		try {
+			Connection con = conexion();
+			Statement st = con.createStatement();
+			String consulta = "SELECT * FROM futbolistas WHERE dni='" + id + "';";
+			ResultSet resultSet = (ResultSet) st.executeQuery(consulta);
+			
+			while (resultSet.next()) {
+				
+				String izena = resultSet.getString("nombre");
+				String abizena = resultSet.getString("apellido");
+				int salary = resultSet.getInt("salario");
+				int teamID = resultSet.getInt("idEquipo");
+				
+				fut = new Futbolista(id, izena, abizena, salary, teamID);
+			}
+		} catch (SQLException e) {
+
+			System.err.println("ERROR in Method getFutbolistaIDtik" + e.getMessage());
+
 		}
 		return fut;
 	}
@@ -90,7 +102,7 @@ public class FutbolistaConnect {
 				fut.toString();
 			}
 		} catch (SQLException e) {
-			
+
 			System.err.println("ERROR in method getFutbolistak()");
 		}
 		return futbolistaList;
