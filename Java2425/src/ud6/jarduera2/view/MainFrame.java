@@ -102,12 +102,8 @@ public class MainFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				
-				FutbolistaController futctrl = new FutbolistaController(futView, futcon);
-
+				futView.searchPlayer();
 				
-				futView.searchPlayer(null, null);
-				
-
 			}
 		});
 		contentPane.add(btnOption5);

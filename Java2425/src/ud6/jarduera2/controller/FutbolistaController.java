@@ -34,16 +34,15 @@ public class FutbolistaController {
 			data[i][4] = futbolistaList.get(i).getIdTaldea();
 
 		}
-		
-		view.showAllPlayers(data, columns);
+		view.setContentPane(view.showData(data, columns));
+		view.setVisible(true);
 
 	}
 	
-	public void searchPlayerID () {
+	public Object[][] searchPlayerID (String eskaera) {
 		
-		view
-		Futbolista fut = model.getFutbolistaIDtik();
-		String[] columns = { "NAN", "Izena", "Abizena", "Soldata", "IDTaldea" };
+		
+		Futbolista fut = model.getFutbolistaIDtik(eskaera);
 		Object[][] data = new Object[1][5];
 
 			data[0][0] = fut.getNan();
@@ -51,9 +50,9 @@ public class FutbolistaController {
 			data[0][2] = fut.getAbizena();
 			data[0][3] = fut.getSoldata();
 			data[0][4] = fut.getIdTaldea();
-		
-		view.searchPlayer(data, columns);
-		
+			
+			return data;
+			
 	}
 	
 	
