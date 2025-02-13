@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.JTable;
+
 import ud6.jarduera2.models.Futbolista;
 import ud6.jarduera2.controller.ddbb.FutbolistaConnect;
 import ud6.jarduera2.view.FutbolistaFrame;
@@ -14,10 +17,10 @@ public class FutbolistaController {
 	private FutbolistaConnect model;
 
 	public FutbolistaController(FutbolistaFrame view, FutbolistaConnect model) {
-		
+
 		this.view = view;
 		this.model = model;
-		
+
 	}
 
 	public void showPlayers() {
@@ -38,22 +41,20 @@ public class FutbolistaController {
 		view.setVisible(true);
 
 	}
-	
-	public Object[][] searchPlayerID (String eskaera) {
-		
-		
-		Futbolista fut = model.getFutbolistaIDtik(eskaera);
-		Object[][] data = new Object[1][5];
 
-			data[0][0] = fut.getNan();
-			data[0][1] = fut.getIzena();
-			data[0][2] = fut.getAbizena();
-			data[0][3] = fut.getSoldata();
-			data[0][4] = fut.getIdTaldea();
-			
-			return data;
-			
+	public Object[] searchPlayerID(String eskaera) {
+
+		Futbolista fut = model.getFutbolistaIDtik(eskaera);
+		Object[] data = new Object[5];
+
+		data[0] = fut.getNan();
+		data[1] = fut.getIzena();
+		data[2] = fut.getAbizena();
+		data[3] = fut.getSoldata();
+		data[4] = fut.getIdTaldea();
+		
+		return data;
+		
 	}
-	
-	
+
 }

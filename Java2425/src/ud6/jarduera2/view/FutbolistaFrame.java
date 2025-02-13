@@ -1,7 +1,6 @@
 package ud6.jarduera2.view;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,19 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.table.DefaultTableModel;
 import ud6.jarduera2.controller.FutbolistaController;
 import ud6.jarduera2.controller.ddbb.FutbolistaConnect;
-
-import javax.swing.JTextArea;
 
 public class FutbolistaFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton btnExit;
-	protected JTable futTable;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -64,13 +58,12 @@ public class FutbolistaFrame extends JFrame {
 	public JPanel showData(Object[][] data, String[] columns) {
 
 		// Crear la ventana para mostrar los futbolistas
-		
+
 		JPanel panel = new JPanel();
 
 		// Crear la tabla con los datos
 		JTable futTable = new JTable(data, columns);
 		JScrollPane scrollPane = new JScrollPane(futTable);
-		
 
 		// Agregar componentes
 		panel.setLayout(new BorderLayout());
@@ -84,6 +77,7 @@ public class FutbolistaFrame extends JFrame {
 
 		FutbolistaFrame view = new FutbolistaFrame();
 		FutbolistaConnect con = new FutbolistaConnect();
+		String[] columns = { "NAN", "Izena", "Abizena", "Soldata", "IDTaldea" };
 		view.setSize(600, 400);
 		view.setTitle("Futbolista");
 		view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -94,52 +88,67 @@ public class FutbolistaFrame extends JFrame {
 		searchPanel.setLayout(null);
 		JPanel dataPanel = new JPanel();
 		dataPanel.setLayout(new GridLayout(2, 0, 0, 0));
-		
-		
+
+		DefaultTableModel tableModel = new DefaultTableModel() {
+			String[] columns = { "NAN", "Izena", "Abizena", "Soldata", "IDTaldea" };
+
+			public int getColumnCount() {
+
+				return columns.length;
+
+			}
+
+			public String getColumnName(int index) {
+
+				return columns[index];
+
+			}
+
+		};
+
 		JLabel lblID = new JLabel("Jokalariaren ID-a");
 		lblID.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblID.setBounds(40, 100, 145, 15);
-		
+
 		JTextField tfID = new JTextField();
 		tfID.setBounds(170, 98, 100, 20);
-		
-		JButton btnSearch = new JButton("Bilatu");
-		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSearch.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	
-            	FutbolistaController futctrl = new FutbolistaController(view, con);
-            	String[] columns = { "NAN", "Izena", "Abizena", "Soldata", "IDTaldea" };
-            	
-            	futTable = new JTable(futctrl.searchPlayerID(tfID.getText()), columns);
-        		dataPanel.add(futTable);
-            	
-            	
-        		
-        		mainPanel.add(dataPanel);
-        		
-        		
-            }
-        });
-		btnSearch.setBounds(290, 98, 85, 21);
-		
+
+		JTable futTable = new JTable(tableModel);
+
 		JButton btnExit = new JButton("ITZULI");
 		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnExit.setBounds(491, 332, 85, 21);
 		btnExit.addActionListener(e1 -> view.dispose());
-		
-		
-		
+
+		JButton btnSearch = new JButton("Bilatu");
+		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				FutbolistaController futctrl = new FutbolistaController(view, con);
+				
+				tableModel.addRow(futctrl.searchPlayerID(tfID.getText()));
+				futTable.setModel(tableModel);
+				
+				dataPanel.add(futTable);
+				dataPanel.add(btnExit);
+
+				mainPanel.add(dataPanel);
+
+			}
+		});
+		btnSearch.setBounds(290, 98, 85, 21);
+
 		searchPanel.add(lblID);
 		searchPanel.add(tfID);
 		searchPanel.add(btnSearch);
 		mainPanel.add(searchPanel);
-		
+
 		dataPanel.add(futTable);
 		dataPanel.add(btnExit);
-		
+		mainPanel.add(dataPanel);
+
 		view.setVisible(true);
-		
-		
+
 	}
 }
