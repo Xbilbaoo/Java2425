@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import ud6.jarduera2.controller.FutbolistaController;
-import ud6.jarduera2.controller.ddbb.FutbolistaConnect;
+import ud6.jarduera2.models.ddbb.FutbolistaConnect;
 
 public class FutbolistaFrame extends JFrame {
 
@@ -68,6 +68,11 @@ public class FutbolistaFrame extends JFrame {
 		// Agregar componentes
 		panel.setLayout(new BorderLayout());
 		panel.add(scrollPane, BorderLayout.CENTER);
+		JButton btnExit = new JButton("ITZULI");
+		btnExit.setBounds(491, 332, 85, 21);
+		btnExit.addActionListener(e1 -> dispose());
+		panel.add(btnExit, BorderLayout.SOUTH);
+		
 
 		return panel;
 
@@ -87,7 +92,7 @@ public class FutbolistaFrame extends JFrame {
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(null);
 		JPanel dataPanel = new JPanel();
-		dataPanel.setLayout(new GridLayout(2, 0, 0, 0));
+		dataPanel.setLayout(new BorderLayout());
 
 		DefaultTableModel tableModel = new DefaultTableModel() {
 			String[] columns = { "NAN", "Izena", "Abizena", "Soldata", "IDTaldea" };
@@ -129,9 +134,10 @@ public class FutbolistaFrame extends JFrame {
 				
 				tableModel.addRow(futctrl.searchPlayerID(tfID.getText()));
 				futTable.setModel(tableModel);
+				JScrollPane scroll = new JScrollPane(futTable);
 				
-				dataPanel.add(futTable);
-				dataPanel.add(btnExit);
+				dataPanel.add(scroll, BorderLayout.CENTER);
+				dataPanel.add(btnExit, BorderLayout.SOUTH);
 
 				mainPanel.add(dataPanel);
 
@@ -144,8 +150,8 @@ public class FutbolistaFrame extends JFrame {
 		searchPanel.add(btnSearch);
 		mainPanel.add(searchPanel);
 
-		dataPanel.add(futTable);
-		dataPanel.add(btnExit);
+		dataPanel.add(futTable, BorderLayout.CENTER);
+		dataPanel.add(btnExit, BorderLayout.SOUTH);
 		mainPanel.add(dataPanel);
 
 		view.setVisible(true);

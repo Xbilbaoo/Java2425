@@ -9,8 +9,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import ud6.jarduera2.controller.ddbb.FutbolistaConnect;
-import ud6.jarduera2.controller.ddbb.TaldeaConnect;
+import ud6.jarduera2.models.ddbb.FutbolistaConnect;
+import ud6.jarduera2.models.ddbb.TaldeaConnect;
 import ud6.jarduera2.controller.FutbolistaController;
 
 import java.awt.GridLayout;
@@ -118,14 +118,16 @@ public class MainFrame extends JFrame {
 
 		Icon icon = new ImageIcon("src/ud6/jarduera2/view/img/exit.png");
 		JButton btnExit = new JButton(icon);
-		btnExit.addMouseListener(new MouseAdapter() {
-
-			public void mouseClicked(MouseEvent e) {
-
+		btnExit.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
 				System.exit(0);
-
+				
 			}
+			
 		});
+		
 		contentPane.add(btnExit);
 	}
 

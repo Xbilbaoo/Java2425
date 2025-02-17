@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JTable;
 
 import ud6.jarduera2.models.Futbolista;
-import ud6.jarduera2.controller.ddbb.FutbolistaConnect;
+import ud6.jarduera2.models.ddbb.FutbolistaConnect;
 import ud6.jarduera2.view.FutbolistaFrame;
 
 public class FutbolistaController {

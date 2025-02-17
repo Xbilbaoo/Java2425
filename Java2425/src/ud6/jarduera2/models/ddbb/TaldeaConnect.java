@@ -1,4 +1,4 @@
-package ud6.jarduera2.controller.ddbb;
+package ud6.jarduera2.models.ddbb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
