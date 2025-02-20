@@ -56,5 +56,9 @@ public class FutbolistaController {
 		return data;
 		
 	}
+	
+	public void createPlayer() {
+		
+	}
 
 }

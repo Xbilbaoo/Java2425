@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,7 +70,8 @@ public class FutbolistaFrame extends JFrame {
 		// Agregar componentes
 		panel.setLayout(new BorderLayout());
 		panel.add(scrollPane, BorderLayout.CENTER);
-		JButton btnExit = new JButton("ITZULI");
+		Icon icon = new ImageIcon("src/ud6/jarduera2/view/img/exit.png");
+		JButton btnExit = new JButton(icon);
 		btnExit.setBounds(491, 332, 85, 21);
 		btnExit.addActionListener(e1 -> dispose());
 		panel.add(btnExit, BorderLayout.SOUTH);
@@ -119,8 +122,9 @@ public class FutbolistaFrame extends JFrame {
 		tfID.setBounds(170, 98, 100, 20);
 
 		JTable futTable = new JTable(tableModel);
-
-		JButton btnExit = new JButton("ITZULI");
+		
+		Icon icon = new ImageIcon("src/ud6/jarduera2/view/img/exit.png");
+		JButton btnExit = new JButton(icon);
 		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnExit.setBounds(491, 332, 85, 21);
 		btnExit.addActionListener(e1 -> view.dispose());
@@ -156,5 +160,98 @@ public class FutbolistaFrame extends JFrame {
 
 		view.setVisible(true);
 
+	}
+	
+	public void CreatePlayer() {
+		
+		FutbolistaFrame view = new FutbolistaFrame();
+		FutbolistaConnect con = new FutbolistaConnect();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 400);
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(panel);
+		panel.setLayout(null);
+		
+		JLabel lblID = new JLabel("NAN / NIE");
+		lblID.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblID.setBounds(20, 50, 85, 15);
+		panel.add(lblID);
+		
+		JTextField tfID = new JTextField();
+		tfID.setBounds(130, 48, 96, 19);
+		panel.add(tfID);
+		tfID.setColumns(10);
+		
+		JLabel lblIzena = new JLabel("IZENA");
+		lblIzena.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblIzena.setBounds(20, 90, 55, 15);
+		panel.add(lblIzena);
+		
+		JTextField tfName = new JTextField();
+		tfName.setBounds(130, 88, 96, 19);
+		panel.add(tfName);
+		tfName.setColumns(10);
+		
+		JLabel lblAbizena = new JLabel("ABIZENA");
+		lblAbizena.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAbizena.setBounds(20, 130, 75, 15);
+		panel.add(lblAbizena);
+		
+		JTextField tfAbizena = new JTextField();
+		tfAbizena.setColumns(10);
+		tfAbizena.setBounds(130, 128, 96, 19);
+		panel.add(tfAbizena);
+		
+		JLabel lblSoldata = new JLabel("SOLDATA");
+		lblSoldata.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSoldata.setBounds(260, 50, 80, 15);
+		panel.add(lblSoldata);
+		
+		JTextField tfSoldata = new JTextField();
+		tfSoldata.setColumns(10);
+		tfSoldata.setBounds(400, 48, 96, 19);
+		panel.add(tfSoldata);
+		
+		JLabel lblIdTaldea = new JLabel("TALDEAREN ID-A");
+		lblIdTaldea.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblIdTaldea.setBounds(260, 90, 135, 15);
+		panel.add(lblIdTaldea);
+		
+		JTextField tfIDTaldea = new JTextField();
+		tfIDTaldea.setBounds(400, 88, 96, 19);
+		panel.add(tfIDTaldea);
+		tfIDTaldea.setColumns(10);
+		
+		JButton btnCreate = new JButton("Jokalaria Sortu");
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FutbolistaController futctrl = new FutbolistaController(view, con);
+				
+			}
+		});
+		btnCreate.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnCreate.setBounds(118, 200, 150, 25);
+		panel.add(btnCreate);
+		
+		JButton btnErase = new JButton("Datuak Ezabatu");
+		btnErase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnErase.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnErase.setBounds(309, 200, 150, 25);
+		panel.add(btnErase);
+		
+		Icon icon = new ImageIcon("src/ud6/jarduera2/view/img/exit.png");
+		JButton btnExit = new JButton(icon);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnExit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnExit.setBounds(476, 328, 100, 25);
+		panel.add(btnExit);
 	}
 }
