@@ -56,7 +56,7 @@ public class PertsonaAPP {
 					System.out.println(eskaera + " pertsonaren IMC balorea " + pertsonaList.get(indizea).kalkulatuIMC(
 							pertsonaList.get(indizea).getPisua(), pertsonaList.get(indizea).getAltuera()) + " da.");
 					break;
-				
+
 				} else {
 
 					System.out.println(
@@ -72,9 +72,9 @@ public class PertsonaAPP {
 				if (badago == true) {
 
 					indizea = indizeaLortu(pertsonaList, eskaera);
-					
+
 					nagusiaDa = pertsonaList.get(indizea).adinezNagusi(pertsonaList.get(indizea).getAdina());
-					
+
 					if (nagusiaDa == true) {
 
 						System.out.println(eskaera + " adinez nagusikoa da.");
@@ -95,11 +95,22 @@ public class PertsonaAPP {
 				break;
 
 			case 4:
-				
+
 				datuakGorde(file, pertsonaList);
 				break;
-			}
 
+			case 0:
+
+				System.out.println("Amaiera.");
+				break;
+
+			default:
+
+				System.out.println("Aukera hori ez da egokia.");
+				break;
+				
+			}
+			
 		} while (aukera != 0);
 
 	}
@@ -110,9 +121,9 @@ public class PertsonaAPP {
 
 		String[] data;
 		String line = null;
-		
-			// DECLARE THE OBJECT "PERTSONA" //
-		
+
+		// DECLARE THE OBJECT "PERTSONA" //
+
 		Pertsona pertsona;
 
 		// METHOD //
@@ -166,7 +177,7 @@ public class PertsonaAPP {
 
 		// METHOD TO CREATE A NEW OBJECT BY INPUTS OF A USER //
 
-			// INITIALIZE A NEW INSTANCE //
+		// INITIALIZE A NEW INSTANCE //
 
 		Pertsona pertsona = new Pertsona();
 
@@ -190,7 +201,7 @@ public class PertsonaAPP {
 		System.out.println("Altuera (Cm-etan):");
 		pertsona.setAltuera(Double.parseDouble(sc.nextLine()));
 
-			// ADD THE INSTANCE TO THE ARRAYLIST //
+		// ADD THE INSTANCE TO THE ARRAYLIST //
 
 		pertsonaList.add(pertsona);
 
@@ -257,32 +268,32 @@ public class PertsonaAPP {
 	}
 
 	private static void datuakGorde(File file, ArrayList<Pertsona> pertsonaList) {
-		
+
 		// VARIABLES //
-		
-				int i = 0;
-				
-				// TRY-CATCH METHOD TO SAVE THE DATA TO THE FILE // 
-				
-				try {
-					
-					PrintWriter pw = new PrintWriter(file);
 
-					for (i = 0; i < pertsonaList.size(); i++) {
+		int i = 0;
 
-						pw.println(pertsonaList.get(i).saveData());
+		// TRY-CATCH METHOD TO SAVE THE DATA TO THE FILE //
 
-					}
+		try {
 
-					pw.close();
-				
-				} catch (FileNotFoundException e) {
+			PrintWriter pw = new PrintWriter(file);
 
-					System.out.println("Datuek ez dira ondo gorde!!");
-					
-				}
-				
-				System.out.println("Datuak ondo gorde dira!!");
-		
+			for (i = 0; i < pertsonaList.size(); i++) {
+
+				pw.println(pertsonaList.get(i).saveData());
+
+			}
+
+			pw.close();
+
+		} catch (FileNotFoundException e) {
+
+			System.out.println("Datuek ez dira ondo gorde!!");
+
+		}
+
+		System.out.println("Datuak ondo gorde dira!!");
+
 	}
 }
