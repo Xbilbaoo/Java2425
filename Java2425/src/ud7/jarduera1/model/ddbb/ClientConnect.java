@@ -66,7 +66,9 @@ public class ClientConnect {
 				cList.add(c);
 
 			}
-
+			
+			con.close();
+			
 		} catch (SQLException e) {
 
 			System.err.println("ERROR in method 'getClients': " + e.getMessage());
@@ -91,6 +93,8 @@ public class ClientConnect {
 			String query = "INSERT INTO cliente VALUES(" + c.getClientID() + ", " + c.getName() + ", " + c.getSurname()
 					+ ");";
 			st.executeUpdate(query);
+			
+			con.close();
 
 		} catch (SQLException e) {
 
@@ -112,6 +116,8 @@ public class ClientConnect {
 			Statement st = con.createStatement();
 			String query = "DELETE FROM cliente WHERE id_cliente = " + id + ";";
 			st.executeUpdate(query);
+			
+			con.close();
 
 		} catch (SQLException e) {
 
