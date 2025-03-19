@@ -5,18 +5,25 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.BoxLayout;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JScrollBar;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
 
-public class BuyView extends JFrame {
+import ud7.jarduera1.controller.ProductController;
+
+import javax.swing.JScrollPane;
+
+public class StoreView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
@@ -24,8 +31,13 @@ public class BuyView extends JFrame {
 	private JTextField tfProductName;
 	private JTextField tfProductPrice;
 	private JTextField tfQuantity;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfClientID;
+	private JTextField tfClientName;
+	private JTable sellTable;
+	private JScrollPane scroll;
+	private ProductController pctrl;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -34,7 +46,7 @@ public class BuyView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BuyView frame = new BuyView();
+					StoreView frame = new StoreView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,9 +58,9 @@ public class BuyView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BuyView() {
+	public StoreView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 400);
+		setBounds(100, 100, 800, 600);
 		mainPanel = new JPanel();
 		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -68,30 +80,41 @@ public class BuyView extends JFrame {
 		createPanel.add(lblProductID);
 		
 		tfProductID = new JTextField();
-		tfProductID.setBounds(150, 9, 195, 20);
+		tfProductID.setBounds(150, 10, 195, 20);
 		createPanel.add(tfProductID);
 		tfProductID.setColumns(15);
 		
 		JLabel lblProductName = new JLabel("Produktuaren izena:");
-		lblProductName.setBounds(10, 50, 150, 20);
+		lblProductName.setBounds(10, 70, 150, 20);
 		createPanel.add(lblProductName);
 		
 		tfProductName = new JTextField();
-		tfProductName.setBounds(150, 49, 195, 20);
+		tfProductName.setBounds(150, 70, 195, 20);
 		createPanel.add(tfProductName);
 		tfProductName.setColumns(10);
 		
 		JLabel lblProductPrice = new JLabel("Produktuaren prezioa:");
-		lblProductPrice.setBounds(10, 90, 150, 20);
+		lblProductPrice.setBounds(10, 130, 150, 20);
 		createPanel.add(lblProductPrice);
 		
 		tfProductPrice = new JTextField();
-		tfProductPrice.setBounds(150, 89, 195, 20);
+		tfProductPrice.setBounds(150, 130, 195, 20);
 		createPanel.add(tfProductPrice);
 		tfProductPrice.setColumns(10);
 		
 		JButton btnSave = new JButton("Gorde");
-		btnSave.setBounds(260, 130, 85, 21);
+		
+		btnSave.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				pctrl.addProduct(Integer.parseInt(tfProductID.getText()), tfProductName.getText(), Integer.parseInt(tfProductPrice.getText()));
+				
+			}
+			
+		});
+		
+		btnSave.setBounds(260, 190, 85, 21);
 		createPanel.add(btnSave);
 		
 		JPanel buyPanel = new JPanel();
@@ -117,24 +140,56 @@ public class BuyView extends JFrame {
 		tfQuantity.setColumns(10);
 		
 		JLabel lblClientID = new JLabel("Bezeroaren ID-a:");
-		lblClientID.setBounds(43, 50, 150, 20);
+		lblClientID.setBounds(43, 70, 150, 20);
 		buyPanel.add(lblClientID);
 		
-		textField = new JTextField();
-		textField.setBounds(175, 50, 203, 19);
-		buyPanel.add(textField);
-		textField.setColumns(10);
+		tfClientID = new JTextField();
+		tfClientID.setBounds(175, 70, 203, 19);
+		buyPanel.add(tfClientID);
+		tfClientID.setColumns(10);
 		
 		JLabel lblClientName = new JLabel("Bezeroaren ID-a:");
-		lblClientName.setBounds(43, 90, 150, 20);
+		lblClientName.setBounds(43, 130, 150, 20);
 		buyPanel.add(lblClientName);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(175, 90, 203, 19);
-		buyPanel.add(textField_1);
+		tfClientName = new JTextField();
+		tfClientName.setColumns(10);
+		tfClientName.setBounds(175, 130, 203, 19);
+		buyPanel.add(tfClientName);
+		
+		JButton btnBuy = new JButton("Erosi");
+		btnBuy.setBounds(293, 190, 85, 21);
+		buyPanel.add(btnBuy);
 		
 		JPanel tablePanel = new JPanel();
 		mainPanel.add(tablePanel);
+		tablePanel.setLayout(null);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 0, 776, 2);
+		tablePanel.add(separator);
+		
+		JComboBox comBoxTable = new JComboBox();
+		comBoxTable.setBounds(338, 10, 100, 20);
+		tablePanel.add(comBoxTable);
+		
+		sellTable = new JTable();
+		sellTable.setModel(new DefaultTableModel(
+			new Object[][] {
+				
+			},
+			new String[] {
+				"PrezioTotala", "Unitatezko prezioa", "Kantitatea", "Produktua", "Bezeroa", "ID"
+			}
+		));
+		sellTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		sellTable.setBounds(10, 40, 756, 195);
+		scroll = new JScrollPane(sellTable);
+		tablePanel.add(scroll);
+		
+		JButton btnDelete = new JButton("Ezabatu");
+		btnDelete.setBounds(338, 245, 100, 21);
+		tablePanel.add(btnDelete);
+		
 	}
 }

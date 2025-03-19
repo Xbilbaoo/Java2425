@@ -69,13 +69,13 @@ public class ProductConnect {
 
 	}
 
-	public void createProduct(Product p) {
+	public void createProduct(int id, String name, int price) {
 		
 		try {
 			
 			Connection con = con();
 			Statement st = con.createStatement();
-			String query = "INSERT INTO producto (Nombre, Precio, Cantidad) VALUES (" + p.getName() + ", " + p.getPrice() + ", " + p.getStock() + ");";
+			String query = "INSERT INTO producto VALUES (" + id + ", " + name + ", " + price + ", NULL);";
 			
 			st.executeUpdate(query);
 			
