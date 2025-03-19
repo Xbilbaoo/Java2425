@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 
+import ud7.jarduera1.controller.BuyController;
+import ud7.jarduera1.controller.ClientController;
 import ud7.jarduera1.controller.ProductController;
 
 import javax.swing.JScrollPane;
@@ -36,6 +38,8 @@ public class StoreView extends JFrame {
 	private JTable sellTable;
 	private JScrollPane scroll;
 	private ProductController pctrl;
+	private BuyController bctrl;
+	private ClientController cctrl;
 	
 	
 
@@ -108,7 +112,8 @@ public class StoreView extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				pctrl.addProduct(Integer.parseInt(tfProductID.getText()), tfProductName.getText(), Integer.parseInt(tfProductPrice.getText()));
+				pctrl.addProduct();
+				pctrl.clearData();
 				
 			}
 			
@@ -192,4 +197,60 @@ public class StoreView extends JFrame {
 		tablePanel.add(btnDelete);
 		
 	}
+	
+	
+	
+	// GETTERS //
+	
+	public ProductController getPctrl() {
+		return pctrl;
+	}
+
+	public BuyController getBctrl() {
+		return bctrl;
+	}
+
+	public ClientController getCctrl() {
+		return cctrl;
+	}
+	
+	public JTextField getTfProductID() {
+		return tfProductID;
+	}
+
+	public JTextField getTfProductName() {
+		return tfProductName;
+	}
+
+	public JTextField getTfProductPrice() {
+		return tfProductPrice;
+	}
+
+	public JTextField getTfQuantity() {
+		return tfQuantity;
+	}
+
+	public JTextField getTfClientID() {
+		return tfClientID;
+	}
+
+	public JTextField getTfClientName() {
+		return tfClientName;
+	}
+	
+	
+	// SETTERS //
+	
+	public void setPctrl(ProductController pctrl) {
+		this.pctrl = pctrl;
+	}
+
+	public void setBctrl(BuyController bctrl) {
+		this.bctrl = bctrl;
+	}
+
+	public void setCctrl(ClientController cctrl) {
+		this.cctrl = cctrl;
+	}
+	
 }

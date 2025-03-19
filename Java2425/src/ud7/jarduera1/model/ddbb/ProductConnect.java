@@ -75,7 +75,7 @@ public class ProductConnect {
 			
 			Connection con = con();
 			Statement st = con.createStatement();
-			String query = "INSERT INTO producto VALUES (" + id + ", " + name + ", " + price + ", NULL);";
+			String query = "INSERT INTO producto VALUES(" + id + ", '" + name + "', " + price + ", NULL);";
 			
 			st.executeUpdate(query);
 			
@@ -83,7 +83,7 @@ public class ProductConnect {
 			
 		} catch(SQLException e) {
 			
-			System.err.println("ERROR inserting data on table 'producto'.");
+			System.err.println("ERROR inserting data on table 'producto'." +  e.getMessage());
 			
 		}
 	}

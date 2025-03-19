@@ -8,6 +8,10 @@ public class ProductController {
 	private ProductConnect con;
 	private StoreView view;
 
+	public ProductController() {
+
+	}
+
 	public ProductController(ProductConnect con, StoreView view) {
 
 		this.con = con;
@@ -15,9 +19,41 @@ public class ProductController {
 
 	}
 
-	public void addProduct(int id, String name, int price) {
+	// GETTERS //
 
-		con.createProduct(id, name, price);
+	public ProductConnect getCon() {
+		return con;
+	}
+
+	public StoreView getView() {
+		return view;
+	}
+
+	// SETTER //
+
+	public void setCon(ProductConnect con) {
+		this.con = con;
+	}
+
+	public void setView(StoreView view) {
+		this.view = view;
+	}
+
+	// METHODS //
+
+	public void addProduct() {
+
+		con.createProduct(Integer.parseInt(view.getTfProductID().getText()), view.getTfProductName().getText(),
+				Integer.parseInt(view.getTfProductPrice().getText()));
+
+	}
+
+	public void clearData() {
+		
+		view.getTfProductID().setText("");
+		view.getTfProductName().setText("");
+		view.getTfProductPrice().setText("");
 		
 	}
+
 }
