@@ -80,9 +80,29 @@ public class ProductConnect {
 			st.executeUpdate(query);
 			
 			con.close();
+			
 		} catch(SQLException e) {
 			
-			System.err.println("ERROR inserting data on table 'producto'");
+			System.err.println("ERROR inserting data on table 'producto'.");
+			
+		}
+	}
+	
+	public void deleteProduct(int id) {
+		
+		try {
+			
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "DELETE FROM producto WHERE Id_producto = " + id + ";";
+			
+			st.executeUpdate(query);
+			
+			con.close();
+			
+		} catch(SQLException e) {
+			
+			System.err.println("ERROR deleting data on table 'producto'.");
 			
 		}
 	}
