@@ -11,6 +11,8 @@ import ud7.jarduera1.model.Product;
 
 public class ProductConnect {
 
+	
+	
 	private Connection con() {
 
 		String url = "jdbc:mysql://localhost:3306/tienda";
@@ -154,7 +156,7 @@ public class ProductConnect {
 			
 			Connection con = con();
 			Statement st = con.createStatement();
-			String query = "SELECT Id FROM producto WHERE Nombre = " + product + ";";
+			String query = "SELECT Id_producto FROM producto WHERE Nombre = '" + product + "';";
 			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()) {
@@ -165,9 +167,64 @@ public class ProductConnect {
 			
 		} catch(SQLException e) {
 			
-			System.err.println("ERROR in method 'searchProductID'.");
+			System.err.println("ERROR in method 'searchProductID'." + e.getMessage());
+			
 		}
 		
 		return id;
+	}
+
+	public boolean checkStock(int quantity, int productID, boolean clientExists) {
+		
+		int productStock = 0;
+		
+		try {
+			
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "SELECT Cantidad FROM producto WHERE Id_producto = " + productID + ";";
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				
+				productStock = rs.getInt("Cantidad");
+				
+			}
+		
+		} catch(SQLException e) {
+			
+			System.err.println("ERROR getting data in method 'checkStock'.");
+			
+		}
+		
+		if(quantity < productStock && clientExists) {
+			
+			productStock -= quantity;
+			updateStock(productStock, productID);
+			
+			return true;
+			
+		} else {
+			
+			return false;
+			
+		}
+	}
+	
+	private void updateStock(int updatedStock, int productID) {
+		
+		try {
+			
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "UPDATE producto SET Cantidad = " + updatedStock + " WHERE Id_producto = " + productID + ";";
+			
+			st.executeUpdate(query);
+			
+		} catch(SQLException e) {
+			
+			System.err.println("ERROR updating the stock by the method 'updateStock' in model 'ProductConnect'.");
+			
+		}
 	}
 }

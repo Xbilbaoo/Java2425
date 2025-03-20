@@ -66,9 +66,9 @@ public class ClientConnect {
 				cList.add(c);
 
 			}
-			
+
 			con.close();
-			
+
 		} catch (SQLException e) {
 
 			System.err.println("ERROR in method 'getClients': " + e.getMessage());
@@ -77,7 +77,7 @@ public class ClientConnect {
 
 		return cList;
 	}
-	
+
 	/**
 	 * Method to insert the values from the parameter into the database.
 	 * 
@@ -93,7 +93,7 @@ public class ClientConnect {
 			String query = "INSERT INTO cliente VALUES(" + c.getClientID() + ", " + c.getName() + ", " + c.getSurname()
 					+ ");";
 			st.executeUpdate(query);
-			
+
 			con.close();
 
 		} catch (SQLException e) {
@@ -102,7 +102,7 @@ public class ClientConnect {
 
 		}
 	}
-	
+
 	/**
 	 * Method to delete a client.
 	 * 
@@ -117,13 +117,60 @@ public class ClientConnect {
 			Statement st = con.createStatement();
 			String query = "DELETE FROM cliente WHERE id_cliente = " + id + ";";
 			st.executeUpdate(query);
-			
+
 			con.close();
 
 		} catch (SQLException e) {
 
 			System.err.println("ERROR deleting data on table cliente");
 
+		}
+	}
+
+	public boolean checkClient(int clientID, String clientName) {
+
+		ArrayList<String> nList = new ArrayList<String>();
+		boolean isNotEmpty = false;
+
+		try {
+
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "SELECT Nombre FROM cliente WHERE Id_cliente = " + clientID + ";";
+
+			isNotEmpty = st.execute(query);
+
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+
+				nList.add(rs.getString("Nombre"));
+
+			}
+
+		} catch (SQLException e) {
+
+			System.err.println("ERROR getting data in method 'checkClient'." + e.getMessage());
+
+		}
+
+		if (isNotEmpty) {
+
+			for (int i = 0; i < nList.size(); i++) {
+
+				if (clientName.equalsIgnoreCase(nList.get(i))) {
+
+					return true;
+
+				}
+			}
+
+			return false;
+
+		} else {
+			
+			return false;
+			
 		}
 	}
 

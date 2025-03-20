@@ -47,11 +47,7 @@ public class ProductController {
 
 		con.createProduct(Integer.parseInt(view.getTfProductID().getText()),
 				view.getTfProductName().getText().toUpperCase(), Integer.parseInt(view.getTfProductPrice().getText()));
-
-	}
-
-	public void clearData() {
-
+		
 		view.getTfProductID().setText("");
 		view.getTfProductName().setText("");
 		view.getTfProductPrice().setText("");

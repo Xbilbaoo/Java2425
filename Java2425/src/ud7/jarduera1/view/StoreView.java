@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -95,7 +96,6 @@ public class StoreView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				pctrl.addProduct();
-				pctrl.clearData();
 				insertData();
 				
 			}
@@ -145,6 +145,13 @@ public class StoreView extends JFrame {
 		buyPanel.add(tfClientName);
 		
 		JButton btnBuy = new JButton("Erosi");
+		btnBuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				bctrl.addBuy();
+				
+			}
+		});
 		btnBuy.setBounds(293, 190, 85, 21);
 		buyPanel.add(btnBuy);
 		
@@ -208,9 +215,20 @@ public class StoreView extends JFrame {
 		return tfClientName;
 	}
 	
+	public JComboBox getComboBoxProducts() {
+		return comboBoxProducts;
+	}
+
+
+
+	public JComboBox getComboBoxTable() {
+		return comboBoxTable;
+	}
+
+	
 	
 	// SETTERS //
-	
+
 	public void setPctrl(ProductController pctrl) {
 		this.pctrl = pctrl;
 	}

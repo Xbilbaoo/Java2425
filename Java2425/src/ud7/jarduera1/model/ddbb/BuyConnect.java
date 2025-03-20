@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import ud7.jarduera1.controller.BuyController;
 import ud7.jarduera1.model.Buy;
 
 public class BuyConnect {
 
 	private final ProductConnect pcon = new ProductConnect();
+	private final ClientConnect ccon = new ClientConnect();
 
 	private Connection con() {
 
@@ -70,27 +72,48 @@ public class BuyConnect {
 
 	}
 
-	public void createBuy(int buyID, int clientID, String product, int quantity) {
-
-		int productID = pcon.searchProductID(product);
-
-		try {
-
-			Connection con = con();
-			Statement st = con.createStatement();
-			String query = "INSERT INTO compras VALUES(" + buyID + ", " + clientID + ", " + productID + ", " + quantity
-					+ ");";
-
-			st.executeUpdate(query);
-
-			con.close();
-
-		} catch (SQLException e) {
-
-			System.err.println("ERROR inserting data on table 'compras'.");
-
-		}
+	public void createBuy(int clientID, String clientName, String productName, int quantity) {
 		
+		
+		int productID = pcon.searchProductID(productName);
+		boolean clientExists = ccon.checkClient(clientID, clientName);
+		boolean enoughStock = pcon.checkStock(quantity, productID, clientExists);
+
+		if (clientExists && enoughStock) {
+
+			try {
+
+				Connection con = con();
+				Statement st = con.createStatement();
+				String query = "INSERT INTO compras (Id_cliente, Id_producto, Cantidad) VALUES(" + clientID + ", "
+						+ productID + ", " + quantity + ");";
+
+				st.executeUpdate(query);
+
+				con.close();
+				
+				BuyController.clearData();
+
+			} catch (SQLException e) {
+
+				System.err.println("ERROR inserting data on table 'compras'.");
+
+			}
+
+		} else {
+			
+			if (!clientExists) {
+				
+				BuyController.showClientError();
+				
+			}
+			
+			if(!enoughStock) {
+				
+				System.out.println("Ez dago hainbeste stock.");
+			}
+		}
+
 	}
 
 	public void deleteBuy(int id) {
