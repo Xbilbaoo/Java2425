@@ -11,6 +11,8 @@ import ud7.jarduera1.model.Buy;
 
 public class BuyConnect {
 
+	private final ProductConnect pcon = new ProductConnect();
+
 	private Connection con() {
 
 		String url = "jdbc:mysql://localhost:3306/tienda";
@@ -55,9 +57,9 @@ public class BuyConnect {
 				bList.add(b);
 
 			}
-			
+
 			con.close();
-			
+
 		} catch (SQLException e) {
 
 			System.err.println("ERROR in method 'getBuys'.");
@@ -68,41 +70,85 @@ public class BuyConnect {
 
 	}
 
-	public void createBuy(Buy b) {
-		
+	public void createBuy(int buyID, int clientID, String product, int quantity) {
+
+		int productID = pcon.searchProductID(product);
+
 		try {
-			
+
 			Connection con = con();
 			Statement st = con.createStatement();
-			String query = "INSERT INTO compras VALUES(" + b.getBuyID() + ", " + b.getClientID() + ", " + b.getProductID() + ");";
-			
+			String query = "INSERT INTO compras VALUES(" + buyID + ", " + clientID + ", " + productID + ", " + quantity
+					+ ");";
+
 			st.executeUpdate(query);
-			
+
 			con.close();
-			
-		} catch(SQLException e) {
-			
+
+		} catch (SQLException e) {
+
 			System.err.println("ERROR inserting data on table 'compras'.");
-			
+
 		}
-	}
-	
-	public void deleteBuy(int id) {
 		
+	}
+
+	public void deleteBuy(int id) {
+
 		try {
-			
+
 			Connection con = con();
 			Statement st = con.createStatement();
 			String query = "DELETE FROM compras WHERE Id_compra = " + id + ";";
-			
+
 			st.executeUpdate(query);
-			
+
 			con.close();
-			
-		} catch(SQLException e) {
-			
+
+		} catch (SQLException e) {
+
 			System.err.println("ERROR deleting data on table 'compras'.");
-			
+
 		}
+	}
+
+	public String[] getIDs() {
+
+		ArrayList<String> iList = new ArrayList<String>();
+		String[] IDs = null;
+		try {
+
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "SELECT DISTINCT Id_cliente FROM compras;";
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+
+				iList.add("");
+
+			}
+
+			IDs = iList.toArray(new String[iList.size() + 1]);
+			int i = 1;
+			IDs[0] = "DENAK";
+
+			rs = st.executeQuery(query);
+
+			while (rs.next()) {
+
+				IDs[i] = rs.getString("Id_cliente");
+
+				i++;
+
+			}
+
+		} catch (SQLException e) {
+
+			System.err.println("ERROR in method 'getIDs'." + e.getMessage());
+
+		}
+
+		return IDs;
 	}
 }

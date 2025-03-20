@@ -104,7 +104,8 @@ public class ClientConnect {
 	}
 	
 	/**
-	 * Method to delete a client 
+	 * Method to delete a client.
+	 * 
 	 * @param id The id of the client.
 	 */
 

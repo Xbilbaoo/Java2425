@@ -70,40 +70,104 @@ public class ProductConnect {
 	}
 
 	public void createProduct(int id, String name, int price) {
-		
+
 		try {
-			
+
 			Connection con = con();
 			Statement st = con.createStatement();
-			String query = "INSERT INTO producto VALUES(" + id + ", '" + name + "', " + price + ", NULL);";
-			
+			String query = "INSERT INTO producto VALUES(" + id + ", '" + name + "', " + price + ", 100);";
+
 			st.executeUpdate(query);
-			
+
 			con.close();
-			
-		} catch(SQLException e) {
-			
-			System.err.println("ERROR inserting data on table 'producto'." +  e.getMessage());
-			
+
+		} catch (SQLException e) {
+
+			System.err.println("ERROR inserting data on table 'producto'." + e.getMessage());
+
 		}
 	}
-	
+
 	public void deleteProduct(int id) {
-		
+
 		try {
-			
+
 			Connection con = con();
 			Statement st = con.createStatement();
 			String query = "DELETE FROM producto WHERE Id_producto = " + id + ";";
-			
+
 			st.executeUpdate(query);
-			
+
 			con.close();
+
+		} catch (SQLException e) {
+
+			System.err.println("ERROR deleting data on table 'producto'.");
+
+		}
+	}
+
+	public String[] getNames() {
+
+		ArrayList<String> nList = new ArrayList<String>();
+		String[] names = null;
+		try {
+
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "SELECT Nombre FROM producto;";
+			ResultSet rs = st.executeQuery(query);
+
+			while (rs.next()) {
+
+				nList.add("");
+
+			}
+
+			names = nList.toArray(new String[nList.size()]);
+			int i = 0;
+
+			rs = st.executeQuery(query);
+
+			while (rs.next()) {
+
+				names[i] = rs.getString("Nombre");
+				i++;
+
+			}
+
+		} catch (SQLException e) {
+
+			System.err.println("ERROR in method 'getNames'." + e.getMessage());
+
+		}
+
+		return names;
+
+	}
+	
+	public int searchProductID(String product) {
+		
+		int id = 0;
+		
+		try {
+			
+			Connection con = con();
+			Statement st = con.createStatement();
+			String query = "SELECT Id FROM producto WHERE Nombre = " + product + ";";
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				
+				id = rs.getInt("Id_producto");
+				
+			}
 			
 		} catch(SQLException e) {
 			
-			System.err.println("ERROR deleting data on table 'producto'.");
-			
+			System.err.println("ERROR in method 'searchProductID'.");
 		}
+		
+		return id;
 	}
 }

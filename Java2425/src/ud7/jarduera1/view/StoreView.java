@@ -1,7 +1,5 @@
 package ud7.jarduera1.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,10 +9,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.BoxLayout;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
-import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -40,24 +36,10 @@ public class StoreView extends JFrame {
 	private ProductController pctrl;
 	private BuyController bctrl;
 	private ClientController cctrl;
-	
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StoreView frame = new StoreView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JComboBox comboBoxProducts;
+	private JComboBox comboBoxTable;
+	private JPanel buyPanel;
+	private JPanel tablePanel;
 
 	/**
 	 * Create the frame.
@@ -114,6 +96,7 @@ public class StoreView extends JFrame {
 				
 				pctrl.addProduct();
 				pctrl.clearData();
+				insertData();
 				
 			}
 			
@@ -122,7 +105,7 @@ public class StoreView extends JFrame {
 		btnSave.setBounds(260, 190, 85, 21);
 		createPanel.add(btnSave);
 		
-		JPanel buyPanel = new JPanel();
+		buyPanel = new JPanel();
 		formPanel.add(buyPanel);
 		buyPanel.setLayout(null);
 		
@@ -130,10 +113,9 @@ public class StoreView extends JFrame {
 		lblProducts.setBounds(43, 10, 80, 20);
 		buyPanel.add(lblProducts);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PS4", "XBOX", "SWITCH"}));
-		comboBox.setBounds(133, 9, 90, 20);
-		buyPanel.add(comboBox);
+		comboBoxProducts = new JComboBox();
+		comboBoxProducts.setBounds(133, 9, 90, 20);
+		buyPanel.add(comboBoxProducts);
 		
 		JLabel lblQuantity = new JLabel("Kantitatea:");
 		lblQuantity.setBounds(263, 10, 80, 20);
@@ -153,7 +135,7 @@ public class StoreView extends JFrame {
 		buyPanel.add(tfClientID);
 		tfClientID.setColumns(10);
 		
-		JLabel lblClientName = new JLabel("Bezeroaren ID-a:");
+		JLabel lblClientName = new JLabel("Bezeroaren izena:");
 		lblClientName.setBounds(43, 130, 150, 20);
 		buyPanel.add(lblClientName);
 		
@@ -166,7 +148,7 @@ public class StoreView extends JFrame {
 		btnBuy.setBounds(293, 190, 85, 21);
 		buyPanel.add(btnBuy);
 		
-		JPanel tablePanel = new JPanel();
+		tablePanel = new JPanel();
 		mainPanel.add(tablePanel);
 		tablePanel.setLayout(null);
 		
@@ -174,9 +156,9 @@ public class StoreView extends JFrame {
 		separator.setBounds(0, 0, 776, 2);
 		tablePanel.add(separator);
 		
-		JComboBox comBoxTable = new JComboBox();
-		comBoxTable.setBounds(338, 10, 100, 20);
-		tablePanel.add(comBoxTable);
+		comboBoxTable = new JComboBox();
+		comboBoxTable.setBounds(338, 10, 100, 20);
+		tablePanel.add(comboBoxTable);
 		
 		sellTable = new JTable();
 		sellTable.setModel(new DefaultTableModel(
@@ -201,18 +183,6 @@ public class StoreView extends JFrame {
 	
 	
 	// GETTERS //
-	
-	public ProductController getPctrl() {
-		return pctrl;
-	}
-
-	public BuyController getBctrl() {
-		return bctrl;
-	}
-
-	public ClientController getCctrl() {
-		return cctrl;
-	}
 	
 	public JTextField getTfProductID() {
 		return tfProductID;
@@ -251,6 +221,19 @@ public class StoreView extends JFrame {
 
 	public void setCctrl(ClientController cctrl) {
 		this.cctrl = cctrl;
+	}
+	
+	// METHODS //
+	
+	public void insertData() {
+		
+		comboBoxProducts.setModel(new DefaultComboBoxModel(pctrl.getNames()));
+		buyPanel.add(comboBoxProducts);
+		
+		comboBoxTable.setModel(new DefaultComboBoxModel(bctrl.getIDs()));
+		tablePanel.add(comboBoxTable);
+		
+		
 	}
 	
 }

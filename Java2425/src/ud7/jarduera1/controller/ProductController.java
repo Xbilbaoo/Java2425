@@ -1,5 +1,7 @@
 package ud7.jarduera1.controller;
 
+import java.util.ArrayList;
+
 import ud7.jarduera1.model.ddbb.ProductConnect;
 import ud7.jarduera1.view.StoreView;
 
@@ -43,17 +45,23 @@ public class ProductController {
 
 	public void addProduct() {
 
-		con.createProduct(Integer.parseInt(view.getTfProductID().getText()), view.getTfProductName().getText(),
-				Integer.parseInt(view.getTfProductPrice().getText()));
+		con.createProduct(Integer.parseInt(view.getTfProductID().getText()),
+				view.getTfProductName().getText().toUpperCase(), Integer.parseInt(view.getTfProductPrice().getText()));
 
 	}
 
 	public void clearData() {
-		
+
 		view.getTfProductID().setText("");
 		view.getTfProductName().setText("");
 		view.getTfProductPrice().setText("");
-		
+
+	}
+
+	public String[] getNames() {
+
+		return con.getNames();
+
 	}
 
 }
